@@ -28,7 +28,7 @@ namespace RumsBokning
                 o.Password.RequireDigit = true;
                 o.Password.RequireNonAlphanumeric = false;
 
-                o.Cookies.ApplicationCookie.LoginPath = "/account/login";
+                o.Cookies.ApplicationCookie.LoginPath = "/account/index";
             })
 
                 .AddEntityFrameworkStores<IdentityDbContext>()
