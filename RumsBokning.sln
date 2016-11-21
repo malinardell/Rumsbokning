@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{7667A52C-C04F-4583-9EDD-C986FE598E5B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{AD10C570-2825-447D-BC4D-784EB07C138A}"
+	ProjectSection(SolutionItems) = preProject
+		global.json = global.json
+	EndProjectSection
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "RumsBokning", "src\RumsBokning\RumsBokning.xproj", "{7CC4B05F-03D1-4644-BE5D-4B1E22B7FE96}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7CC4B05F-03D1-4644-BE5D-4B1E22B7FE96}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7CC4B05F-03D1-4644-BE5D-4B1E22B7FE96}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7CC4B05F-03D1-4644-BE5D-4B1E22B7FE96}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7CC4B05F-03D1-4644-BE5D-4B1E22B7FE96}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{7CC4B05F-03D1-4644-BE5D-4B1E22B7FE96} = {7667A52C-C04F-4583-9EDD-C986FE598E5B}
+	EndGlobalSection
+EndGlobal
