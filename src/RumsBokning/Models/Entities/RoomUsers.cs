@@ -5,7 +5,6 @@ namespace RumsBokning.Models.Entities
 {
     public partial class RoomUsers
     {
-        public int Id { get; set; }
         public int RId { get; set; }
         public string UId { get; set; }
 

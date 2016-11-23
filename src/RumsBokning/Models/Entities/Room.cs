@@ -7,6 +7,7 @@ namespace RumsBokning.Models.Entities
     {
         public Room()
         {
+            RoomTime = new HashSet<RoomTime>();
             RoomUsers = new HashSet<RoomUsers>();
         }
 
@@ -17,7 +18,7 @@ namespace RumsBokning.Models.Entities
         public bool? HasProjector { get; set; }
         public bool? HasTvScreen { get; set; }
 
-        public virtual RoomTime RoomTime { get; set; }
+        public virtual ICollection<RoomTime> RoomTime { get; set; }
         public virtual ICollection<RoomUsers> RoomUsers { get; set; }
     }
 }

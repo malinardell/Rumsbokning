@@ -1,0 +1,37 @@
+﻿@model CreateUserVM
+
+<center>
+    <h1>Skapa användare</h1>
+    <form asp-controller="account" asp-action="CreateUser">
+        <label asp-for="UserName"></label>
+        <input asp-for="UserName" />
+        <span asp-validation-for="UserName"></span>
+        <br />
+        <br />
+        <label asp-for="Password"></label>
+        <input asp-for="Password" />
+        <span asp-validation-for="Password"></span>
+        <br />
+        <br />
+        <label asp-for="FirstName"></label>
+        <input asp-for="FirstName" />
+        <span asp-validation-for="FirstName"></span>
+        <br />
+        <br />
+        <label asp-for="LastName"></label>
+        <input asp-for="LastName" />
+        <span asp-validation-for="LastName"></span>
+        <br />
+        <br />
+        <label asp-for="Category"></label>
+        <select asp-for="Category">
+            <option value="Student">Student</option>
+            <option value="Admin">Admin</option>
+            <option value="Lärare">Lärare</option>
+        </select>
+        <span asp-validation-for="Category"></span>
+        <br />
+        <br />
+        <input type="submit" value="Skapa" />
+    </form>
+</center>

@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using RumsBokning.Models.Entities;
 
 namespace RumsBokning
 {
@@ -19,6 +20,10 @@ namespace RumsBokning
         public void ConfigureServices(IServiceCollection services)
         {
             var connString = @"Data Source=(localdb)\mssqllocaldb;Initial Catalog=Identitybooking;Integrated Security=True";
+
+            services.AddDbContext<BookingContext>(o =>
+              o.UseSqlServer(connString));
+
             services.AddDbContext<IdentityDbContext>(o =>
                 o.UseSqlServer(connString));
 
@@ -27,10 +32,8 @@ namespace RumsBokning
                 o.Password.RequiredLength = 8;
                 o.Password.RequireDigit = true;
                 o.Password.RequireNonAlphanumeric = false;
-
                 o.Cookies.ApplicationCookie.LoginPath = "/account/index";
             })
-
                 .AddEntityFrameworkStores<IdentityDbContext>()
                 .AddDefaultTokenProviders();
 
@@ -43,6 +46,7 @@ namespace RumsBokning
             {
                 app.UseDeveloperExceptionPage();
                 app.UseIdentity();
+                app.UseStaticFiles();
                 app.UseMvcWithDefaultRoute();
             }
         }

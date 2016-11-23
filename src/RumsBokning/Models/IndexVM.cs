@@ -9,7 +9,7 @@ namespace RumsBokning.Models
     public class IndexVM
     {
         [Display(Name ="Email")]
-        [Required(ErrorMessage = "Enter a username")]
+        [Required(ErrorMessage = "Enter a email")]
         public string UserName { get; set; }
 
         [Required(ErrorMessage = "Enter a password")]

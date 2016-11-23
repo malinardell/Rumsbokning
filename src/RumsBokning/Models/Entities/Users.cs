@@ -17,6 +17,5 @@ namespace RumsBokning.Models.Entities
         public string Category { get; set; }
 
         public virtual ICollection<RoomUsers> RoomUsers { get; set; }
-        public virtual AspNetUsers IdNavigation { get; set; }
     }
 }

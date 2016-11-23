@@ -1,12 +1,8 @@
-﻿@model RumsBokning.Models.IndexVM
-@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+﻿@model IndexVM
 
-<!DOCTYPE html>
-<html>
-<head>
+
     <title>Login</title>
-</head>
-<body>
+
     <h1>Login</h1>
     <form asp-controller="home" asp-action="home">
         <label asp-for="UserName"></label>
@@ -19,5 +15,4 @@
         <br />
         <input type="submit" value="Login" />
     </form>
-</body>
-</html>
+

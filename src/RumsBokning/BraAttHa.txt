@@ -1,0 +1,1 @@
+Scaffold-DbContext "Data Source=(localdb)\mssqllocaldb;Initial Catalog=Identitybooking;Integrated Security=True" Microsoft.EntityFrameworkCore.SqlServer -OutputDir ”Models/Entities” -Force -Context "BookingContext" -schema "aaa"
