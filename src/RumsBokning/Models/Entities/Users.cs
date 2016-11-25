@@ -7,7 +7,7 @@ namespace RumsBokning.Models.Entities
     {
         public Users()
         {
-            RoomUsers = new HashSet<RoomUsers>();
+            RoomTime = new HashSet<RoomTime>();
         }
 
         public string Id { get; set; }
@@ -16,6 +16,6 @@ namespace RumsBokning.Models.Entities
         public string Email { get; set; }
         public string Category { get; set; }
 
-        public virtual ICollection<RoomUsers> RoomUsers { get; set; }
+        public virtual ICollection<RoomTime> RoomTime { get; set; }
     }
 }

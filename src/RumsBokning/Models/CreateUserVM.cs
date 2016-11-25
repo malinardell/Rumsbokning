@@ -8,10 +8,11 @@ namespace RumsBokning.Models
 {
     public class CreateUserVM
     {
-        [Display(Name = "Email")]
+        [Display(Name = "E-post")]
         [Required(ErrorMessage = "Fyll i e-post")]
         public string UserName { get; set; }
 
+        [Display(Name = "Lösenord")]
         [Required(ErrorMessage = "Fyll i lösenord")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
