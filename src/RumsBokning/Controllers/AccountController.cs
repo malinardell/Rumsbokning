@@ -70,7 +70,7 @@ namespace RumsBokning.Controllers
             }
 
             if (string.IsNullOrWhiteSpace(returnUrl))
-                return RedirectToAction(nameof(HomeController.Home));
+                return RedirectToAction(nameof(HomeController.Home),"home");
             else
                 return Redirect(returnUrl);
         }
