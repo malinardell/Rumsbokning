@@ -8,10 +8,11 @@ namespace RumsBokning.Models
 {
     public class IndexVM
     {
-        [Display(Name ="Email")]
+        [Display(Name ="E-post")]
         [Required(ErrorMessage = "Enter a email")]
         public string UserName { get; set; }
 
+        [Display(Name = "Lösenord")]
         [Required(ErrorMessage = "Enter a password")]
         [DataType(DataType.Password)]
         public string Password { get; set; }

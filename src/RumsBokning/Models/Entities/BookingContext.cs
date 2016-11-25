@@ -8,9 +8,8 @@ namespace RumsBokning.Models.Entities
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-           
             //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-            //optionsBuilder.UseSqlServer(@"Data Source=(localdb)\mssqllocaldb;Initial Catalog=Identitybooking;Integrated Security=True");
+            optionsBuilder.UseSqlServer(@"Data Source=(localdb)\mssqllocaldb;Initial Catalog=Identitybooking;Integrated Security=True");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -18,8 +17,6 @@ namespace RumsBokning.Models.Entities
             modelBuilder.Entity<Room>(entity =>
             {
                 entity.ToTable("Room", "aaa");
-
-                entity.Property(e => e.Id).ValueGeneratedNever();
 
                 entity.Property(e => e.HasProjector).HasColumnName("Has_Projector");
 
@@ -36,42 +33,36 @@ namespace RumsBokning.Models.Entities
             {
                 entity.ToTable("RoomTime", "aaa");
 
-                entity.Property(e => e.EndTime).HasColumnType("datetime");
+                entity.HasIndex(e => new { e.RId, e.UId, e.StartTime, e.EndTime })
+                    .HasName("uq_RoomTime")
+                    .IsUnique();
+
+                entity.Property(e => e.EndTime)
+                    .IsRequired()
+                    .HasColumnType("datetime");
 
                 entity.Property(e => e.RId).HasColumnName("R_Id");
 
-                entity.Property(e => e.StartTime).HasColumnType("datetime");
-
-                entity.HasOne(d => d.R)
-                    .WithMany(p => p.RoomTime)
-                    .HasForeignKey(d => d.RId)
-                    .HasConstraintName("fk_RoomId");
-            });
-
-            modelBuilder.Entity<RoomUsers>(entity =>
-            {
-                entity.HasKey(e => new { e.RId, e.UId })
-                    .HasName("UQ__tmp_ms_x__7BB72AE31EE6661F");
-
-                entity.ToTable("RoomUsers", "aaa");
-
-                entity.Property(e => e.RId).HasColumnName("R_Id");
+                entity.Property(e => e.StartTime)
+                    .IsRequired()
+                    .HasColumnType("datetime");
 
                 entity.Property(e => e.UId)
+                    .IsRequired()
                     .HasColumnName("U_Id")
                     .HasMaxLength(450);
 
                 entity.HasOne(d => d.R)
-                    .WithMany(p => p.RoomUsers)
+                    .WithMany(p => p.RoomTime)
                     .HasForeignKey(d => d.RId)
                     .OnDelete(DeleteBehavior.Restrict)
-                    .HasConstraintName("fk_RoomUsersId");
+                    .HasConstraintName("fk_RoomId");
 
                 entity.HasOne(d => d.U)
-                    .WithMany(p => p.RoomUsers)
+                    .WithMany(p => p.RoomTime)
                     .HasForeignKey(d => d.UId)
                     .OnDelete(DeleteBehavior.Restrict)
-                    .HasConstraintName("fk_PersonId");
+                    .HasConstraintName("fk_UserId");
             });
 
             modelBuilder.Entity<Users>(entity =>
@@ -106,7 +97,6 @@ namespace RumsBokning.Models.Entities
 
         public virtual DbSet<Room> Room { get; set; }
         public virtual DbSet<RoomTime> RoomTime { get; set; }
-        public virtual DbSet<RoomUsers> RoomUsers { get; set; }
         public virtual DbSet<Users> Users { get; set; }
     }
 }

@@ -87,5 +87,6 @@ namespace RumsBokning.Controllers
                 return View(viewModel);
 
         }
+
     }
 }
