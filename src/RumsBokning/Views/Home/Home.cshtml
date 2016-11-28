@@ -1,15 +1,4 @@
-﻿@model Room[]
-    @*<div class="dropdown">
-        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-            Välj grupprum
-            <span class="caret"></span>
-        </button>
-        <ul class="dropdown-menu">
-            <li><a href="#">HTML</a></li>
-            <li><a href="#">CSS</a></li>
-            <li><a href="#">JavaScript</a></li>
-        </ul>
-    </div>*@
+﻿@model HomeVM
     <div id="all">
         <center>
             <div class="dropdown">
@@ -18,12 +7,13 @@
                     <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu">
-                    @foreach (var item in Model)
+                    @foreach (var item in Model.RoomItems)
                     {
-                        <li><a href="javascript:getCalendar(@item.Id)">@item.Name @item.Capacity st</a></li>
+                        <li><a href="javascript:getCalendar(@item.Value)">@item.Text</a></li>
                     }
                 </ul>
             </div>
+
             <div class="container">
                 <hr>
                 <div id="calendar">

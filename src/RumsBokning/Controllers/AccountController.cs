@@ -70,7 +70,11 @@ namespace RumsBokning.Controllers
             }
 
             if (string.IsNullOrWhiteSpace(returnUrl))
-                return RedirectToAction(nameof(HomeController.Home),"home");
+            {
+                //Response.Cookies.Append("Users.Id", "viewModel.Id");
+
+                return RedirectToAction(nameof(HomeController.Home), "home");
+            }
             else
                 return Redirect(returnUrl);
         }
@@ -80,7 +84,7 @@ namespace RumsBokning.Controllers
         {
             if (ModelState.IsValid)
             {
-                await context.AddUser(viewModel, userManager);
+                await context.AddUser(viewModel);
                 return RedirectToAction(nameof(HomeController.Home), "home");
             }
             else

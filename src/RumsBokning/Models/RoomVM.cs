@@ -15,5 +15,6 @@ namespace RumsBokning.Models.Entities
         public bool? HasProjector { get; set; }
         public bool? HasTvScreen { get; set; }
         public List<RoomTimeAndUser> RoomTimeAndUser { get; set; }
+        public string Description { get; set; }
     }
 }

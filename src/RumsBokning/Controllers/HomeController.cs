@@ -56,6 +56,13 @@ namespace RumsBokning.Controllers
         {
             return View();
         }
+
+        [HttpPost]
+        public async Task <bool> CreateEvent(CreateEventVM viewModel)
+        {
+            await context.BookRoom(viewModel, User.Identity.Name);
+            return true;
+        }
     }
 }
 

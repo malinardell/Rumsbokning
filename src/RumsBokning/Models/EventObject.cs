@@ -11,13 +11,20 @@ namespace RumsBokning.Models
         public DateTime? Start { get; set; }
         public DateTime? End { get; set; }
         public bool AllDay { get; set; }
+        public string Description { get; set; }
 
-        public EventObject(string Title, DateTime? Start, DateTime? End)
+        public EventObject(string Title, DateTime? Start, DateTime? End, string Description)
         {
             this.Title = Title;
             this.Start = Start;
             this.End = End;
-            AllDay = false; 
+            AllDay = false;
+            this.Description = Description;
+        }
+
+        public EventObject()
+        {
+
         }
     }
 }
