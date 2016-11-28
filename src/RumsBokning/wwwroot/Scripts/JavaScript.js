@@ -3,31 +3,27 @@
     window.location = "/account/index";
 }
 
-$("#btnGetJSON").click(function () {
-    $.get("/Home/GetRoom", null, function (result) {
-        //var html = "<ul>";
-        //html += "</ul>";
-        $("#calendar").html(html);
-    });
-});
 
-$.getScript('', function () {
-
+function getCalendar(roomId) {
     var date = new Date();
     var d = date.getDate();
     var m = date.getMonth();
     var y = date.getFullYear();
+    locale: 'sv',
 
-    $('#calendar').fullCalendar({
+    $('#calendar').empty().fullCalendar({
         header: {
             left: 'prev,next today',
             center: 'title',
             right: 'agendaWeek, agendaDay'
         },
-        editable: true,
+        editable: true,      
+        weekNumbers: true,
         firstDay: 1,
         defaultView: 'agendaWeek',
         navLinks: false,
-        events: '/Home/GetRoom'
+        events: '/Home/GetCalendar/'+ roomId
     });
-});
+
+}
+

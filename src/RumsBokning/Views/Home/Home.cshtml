@@ -1,5 +1,5 @@
-﻿
-    <div class="dropdown">
+﻿@model Room[]
+    @*<div class="dropdown">
         <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
             Välj grupprum
             <span class="caret"></span>
@@ -9,21 +9,25 @@
             <li><a href="#">CSS</a></li>
             <li><a href="#">JavaScript</a></li>
         </ul>
-    </div>
-
-<div class="dropdown">
-    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-        JSON grupprum
-        <span class="caret"></span>
-    </button>
-    <ul class="dropdown-menu">
-        <li id="listGetJSON" value="GetAllRooms"><a href="#">HTML</a></li>
-        <li><a href="#">CSS</a></li>
-        <li><a href="#">JavaScript</a></li>
-    </ul>
+    </div>*@
+    <div id="all">
+        <center>
+            <div class="dropdown">
+                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                    Grupprum
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    @foreach (var item in Model)
+                    {
+                        <li><a href="javascript:getCalendar(@item.Id)">@item.Name @item.Capacity st</a></li>
+                    }
+                </ul>
+            </div>
+            <div class="container">
+                <hr>
+                <div id="calendar">
+                </div>
+            </div>
+        </center>
 </div>
-    <div class="container">
-        <hr>
-        <div id="calendar">
-        </div>
-    </div>

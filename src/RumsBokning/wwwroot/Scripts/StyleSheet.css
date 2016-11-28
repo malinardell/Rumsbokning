@@ -9,6 +9,22 @@
     cursor: pointer;
     border-color: transparent;
 }
+
+
+#all{
+width: auto;
+margin: 0;
+height: auto;
+}
+
+.dropdown{
+    margin-left: auto;
+    margin-right: auto;
+    margin: auto;
+    float: left;
+    width: 100px;
+}
+
 .fc {
 	direction: ltr;
 	text-align: left;
@@ -207,10 +223,6 @@ html .fc,
 
 /* Global Event Styles
 ------------------------------------------------------------------------*/
-.dropdown{
-    width: 200px;
-}
-
 #content{
 width: 1200px;
 margin: 0;
