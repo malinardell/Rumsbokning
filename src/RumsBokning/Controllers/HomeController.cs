@@ -7,11 +7,13 @@ using RumsBokning.Models;
 using RumsBokning.Models.Entities;
 using Microsoft.AspNetCore.Mvc.ViewEngines;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Authorization;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace RumsBokning.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         BookingContext context;
