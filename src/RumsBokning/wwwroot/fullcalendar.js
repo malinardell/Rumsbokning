@@ -13,8 +13,6 @@
 (function ($, undefined) {
 
 
-    ;;
-
     var defaults = {
 
         // display
@@ -57,7 +55,7 @@
         timeFormat: { // for event elements
             '': 'h(:mm)t' // default
         },
-
+        
         // locale
         isRTL: false,
         firstDay: 0,

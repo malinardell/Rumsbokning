@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
+using RumsBokning.Models.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,8 +38,9 @@ namespace RumsBokning.Models.Entities
             }
         }
 
-        public RoomVM GetRoomVM(int id)
+        public List<EventObject> GetRoomVM(int id)
         {
+            var events = new List<EventObject>();
             var newRoomVM = new RoomVM();
 
             /* Hitta rummet med parameter id i tabellen Room i db */
@@ -64,13 +67,45 @@ namespace RumsBokning.Models.Entities
                         LastName = u.LastName,
                         StartTime = rt.StartTime,
                         EndTime = rt.EndTime
+
                     })
-                    .Where(x => x.RId == id && x.EndTime >= DateTime.Now)
+                    .Where(x => x.RId == id /*&& x.EndTime >= DateTime.Now*/)
                     .ToList();
 
+                foreach (var item in newRoomVM.RoomTimeAndUser)
+                {
+                    events.Add(new EventObject(item.FirstName + " " + item.LastName, item.StartTime, item.EndTime));
+                }
             }
-
-            return newRoomVM;
+            return events;
         }
+
+        public Room[] GetAllRooms()
+        {
+            return Room
+             .Select(c => new Room
+             {
+                 Capacity = c.Capacity,
+                 Name = c.Name,
+                 Id = c.Id
+             })
+              .ToArray();
+        }
+
+        public void AddRoom(CreateRoomVM viewModel)
+        {
+            var newRoom = new Room
+            {
+                Name = viewModel.RoomName,
+                Capacity = viewModel.Capacity,
+                HasProjector = viewModel.HasProjector,
+                HasTvScreen = viewModel.HasTvScreen,
+                HasWhiteBoard = viewModel.HasWhiteBoard
+            };
+
+            this.Room.Add(newRoom);
+            this.SaveChangesAsync();
+        }
+
     }
 }
