@@ -13,6 +13,7 @@ namespace RumsBokning.Models.Entities
 {
     public partial class BookingContext
     {
+
         UserManager<IdentityUser> userManager;
         public BookingContext(DbContextOptions<BookingContext> options, UserManager<IdentityUser> userManager) : base(options)
         {
@@ -21,23 +22,27 @@ namespace RumsBokning.Models.Entities
 
         public async Task AddUser(CreateUserVM viewModel)
         {
-            var tempUser = new IdentityUser(viewModel.UserName);
-            var result = await userManager.CreateAsync(tempUser, viewModel.Password);
+            
+                var tempUser = new IdentityUser(viewModel.UserName);
+                var result = await userManager.CreateAsync(tempUser, viewModel.Password);
 
-            if (result.Succeeded)
-            {
-                var newUser = new Users
+                if (result.Succeeded)
                 {
-                    Id = tempUser.Id,
-                    FirstName = viewModel.FirstName,
-                    LastName = viewModel.LastName,
-                    Email = viewModel.UserName,
-                    Category = viewModel.Category
-                };
+                    var newUser = new Users
+                    {
+                        Id = tempUser.Id,
+                        FirstName = viewModel.FirstName,
+                        LastName = viewModel.LastName,
+                        Email = viewModel.UserName,
+                        Category = viewModel.Category
+                    };
 
-                this.Users.Add(newUser);
-                await this.SaveChangesAsync();
-            }
+                    this.Users.Add(newUser);
+                    await this.SaveChangesAsync();
+                }
+            
+            
+            
         }
         public async Task BookRoom(CreateEventVM viewModel, string userName)
         {
