@@ -9,7 +9,7 @@ function getCalendar(roomId) {
     var d = date.getDate();
     var m = date.getMonth();
     var y = date.getFullYear();
-    var initialLocaleCode = 'sv-SE';
+
     $('#calendar').empty().fullCalendar({
 
         header: {
@@ -17,15 +17,30 @@ function getCalendar(roomId) {
             center: 'title',
             right: 'agendaWeek, agendaDay'
         },
-        locale: initialLocaleCode,
+        axisFormat: 'H:mm',
+        timeFormat: {
+            '': 'H(:mm)',
+            agenda: 'H:mm{ - H:mm}'
+        },
+        monthNames: ['Januari', 'Februari', 'Mars', 'April', 'Maj', 'Juni', 'Juli', 'Augusti', 'September', 'Oktober', 'November', 'December'],
+        monthNamesShort: ['Jan', 'Feb', 'Mar', 'Apr', 'Maj', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dec'],
+        dayNames: ['Söndag', 'Måndag', 'Tisdag', 'Onsdag', 'Torsdag', 'Fredag', 'Lördag'],
+        dayNamesShort: ['Sön', 'Mån', 'Tis', 'Ons', 'Tor', 'Fre', 'Lör'],
+        buttonText: {
+            today: 'idag',
+            week: 'vecka',
+            day: 'dag'
+        },
         editable: true,
         weekNumbers: true,
+        weekNumberTitle: 'V',
+        allDayText: 'heldag',
         firstDay: 1,
         defaultView: 'agendaWeek',
         navLinks: false,
         selectable: true,
         selectHelper: true,
-        select: function(start, end) {
+        select: function (start, end) {
             var title = prompt('Beskrivning av mötet:');
             var eventData;
             if (title) {
@@ -35,22 +50,23 @@ function getCalendar(roomId) {
                     start: start.toLocaleString(),
                     end: end.toLocaleString(),
                     roomId: roomId
-                }
-                eventRender = function(event, element) {
+                };
+                eventRender = function (event, element) {
                     element.qtip({
                         content: event.description
                     });
-                }
+                };
                 //$('#calendar').fullCalendar('renderEvent', eventData, false); // stick? = true
                 //console.log(title + " " + start + " " + end);
                 $.post('/home/CreateEvent', eventData, function () {
-                    getCalendar(roomId)
-                })
+                    getCalendar(roomId);
+                });
             }
-            $('#calendar').fullCalendar('unselect');        },
-            events: '/Home/GetCalendar/' + roomId
+            $('#calendar').fullCalendar('unselect');
+        },
+        events: '/Home/GetCalendar/' + roomId
 
-        });
+    });
 
 }
 
