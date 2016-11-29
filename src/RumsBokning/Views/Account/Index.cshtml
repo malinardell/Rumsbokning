@@ -1,5 +1,6 @@
 ﻿@model IndexVM
 
+<div id="login">
     <h1>Logga in</h1>
     <form asp-controller="account" asp-action="index">
         <label asp-for="UserName"></label>
@@ -13,5 +14,6 @@
         <br />
         <input type="submit" value="Logga in" />
     </form>
-<br />
-<a href="/account/CreateUser">Skapa användare</a>
+    <br />
+    <a href="/account/CreateUser">Skapa användare</a>
+</div>
