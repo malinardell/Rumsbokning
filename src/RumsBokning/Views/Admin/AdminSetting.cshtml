@@ -1,10 +1,10 @@
-﻿@model CreateUserVM
-<script>$(document).ready(function () { hideAdmin(); });</script>
+﻿@model AdminSettingVM
 <script>$(document).ready(function () { hideSettings(); });</script>
+<script>$(document).ready(function () { hideAdmin(); });</script>
 <center>
     <div id="all">
-        <h1>Skapa användare</h1>
-        <form class="form-inline" asp-controller="account" asp-action="CreateUser">
+        <h1>Redigera uppgifter</h1>
+        <form class="form-inline" asp-controller="admin" asp-action="AdminSetting">
             <div class="form-group">
                 <label asp-for="UserName"></label>
                 <input class="form-control" asp-for="UserName" />
@@ -12,20 +12,6 @@
                 </div>
                 <br />
                 <br />
-            <div class="form-group">
-                <label asp-for="Password"></label>
-                <input type="password" id="password" class="form-control" asp-for="Password">
-                <span asp-validation-for="Password"></span>
-                </div>
-                <br />
-                <br />
-            @*<div class="form-group">
-                <label asp-for="PasswordCheck"></label>
-                <input type="password" id="confirm_password" class="form-control" asp-for="PasswordCheck" />
-                <span asp-validation-for="PasswordCheck"></span>
-                </div>
-                <br />
-                <br />*@
             <div class="form-group">
                 <label asp-for="FirstName"></label>
                 <input class="form-control" asp-for="FirstName" />
@@ -43,16 +29,13 @@
             <div class="form-group">
                 <label asp-for="Category"></label>
                 <select class="form-control" asp-for="Category">
-                    <option value="Student">Student</option>
-                    <option value="Lärare">Lärare</option>
+                    <option value="Admin">Admin</option>
                 </select>
                 <span asp-validation-for="Category"></span>
                 </div>
                 <br />
                 <br />
-                <input id="button" class="btn btn-success" type="submit" value="Skapa" />
+                <input id="button" class="btn btn-success" type="submit" value="Spara" />
 </form>
-        <br />
-        <a href="/account/index"><input id="button" class="btn btn-success" type="submit" value="Avbryt" /></a>
     </div>
 </center>

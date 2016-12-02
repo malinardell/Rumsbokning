@@ -1,4 +1,18 @@
-﻿.button {
+﻿body {
+    margin: 0;
+    padding: 0;
+    background-image: url('../bilder/cover.png');
+}
+
+#button{
+font-size: 18px;
+}
+
+#createuserlink{
+    font-size: 18px;
+}
+
+.button {
 	background-color:transparent;
 	color: white;
 	padding: 15px 32px;
@@ -10,11 +24,20 @@
 	border-color: transparent;
 }
 
-
+#btnRemove{
+    background-color: red;
+}
+#btnUpdate{
+    background-color:green;
+}
 #all{
-	width: auto;
-	margin: 0;
+	width: 900px;
+	margin: auto;
+    clear: both;
 	height: auto;
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 15px;
 }
 
 .active{
@@ -28,15 +51,22 @@ background-color: transparent;
 	float: left;
 	width: 100px;
 }
+#chooseroom{
+    background-color:green;
+}
 
-.header{
-background-image: url(header.png);
-width: 800px;
-height: 450px;
+.header {
+   margin: 0;
+   padding: 0;
+   width: 100%;
+}
+
+.form-control{
+    width: 200px;
 }
 
 .container-fluid{
-background-color: #999;
+background-color: #000;
 border:none;
 }
 
@@ -47,6 +77,14 @@ border:none;
 
 #menulink{
 	color: #fff;
+}
+
+#menuadmin{
+    color: #fff;
+}
+
+#menusetting{
+    color: #fff;
 }
 
 #menulink:hover{
@@ -70,11 +108,36 @@ border:none;
 }
 
 #roomcontent{
-	width: 130px;
+	width: 120px;
 	height: 45px;
 	float: right;
 	position: relative;
-	
+	/*margin: auto;*/
+    clear: both;
+}
+
+#Tvimage{
+width: 30px;
+height: 30px;
+float: left;
+position: absolute;
+left: 0;
+}
+
+#Projectorimage{
+width: 30px;
+height: 30px;
+float: left;
+position: absolute;
+left: 33.3%;
+}
+
+#Whiteboardimage{
+width: 30px;
+height: 30px;
+float: left;
+position: absolute;
+left: 66.6%;
 }
 
 span {
@@ -94,21 +157,21 @@ span {
 	font-family: 'Times New Roman', Times, serif;
 	list-style: none;
 }
+#labelLogin{
+        font-size: 20px;
+}
+
 .hvrbox,
 .hvrbox * {
 	box-sizing: border-box;
 }
 
 .hvrbox {
-	position: relative;
-	display: inline-block;
-	overflow: hidden;
-	max-width: 100%;
-	height: auto;
-}
-
-.hvrbox img {
-	max-width: 100%;
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+    /*max-width: 100%;*/
+    height: auto;
 }
 
 .hvrbox .hvrbox-layer_bottom {

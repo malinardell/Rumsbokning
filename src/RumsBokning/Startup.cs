@@ -19,7 +19,8 @@ namespace RumsBokning
         // For more information on how to configure your application, visit http://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            var connString = @"Data Source=(localdb)\mssqllocaldb;Initial Catalog=Identitybooking;Integrated Security=True";
+            var connString = @"Server=tcp:identitybooking.database.windows.net,1433;Initial Catalog=IdentityBookingDB;Persist Security Info=False;User ID=bookingadmin;Password=Waam1234;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+            //var connString = @"Data Source=(localdb)\mssqllocaldb;Initial Catalog=Identitybooking;Integrated Security=True";
 
             services.AddDbContext<BookingContext>(o =>
               o.UseSqlServer(connString));
@@ -38,16 +39,27 @@ namespace RumsBokning
                 .AddDefaultTokenProviders();
 
             services.AddMvc();
+            services.AddSession();
+            services.AddMemoryCache();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             {
+                app.UseSession();
                 app.UseDeveloperExceptionPage();
                 app.UseIdentity();
                 app.UseStaticFiles();
-                app.UseMvcWithDefaultRoute();
+                //app.UseMvcWithDefaultRoute();
+
+                app.UseMvc(routes =>
+                {
+                    routes.MapRoute(
+                        name: "default",
+                        template: "{controller=Account}/{action=Index}"
+                            );
+                });
             }
         }
     }

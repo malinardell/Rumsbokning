@@ -8,6 +8,8 @@ namespace RumsBokning.Models
 {
     public class IndexVM
     {
+        [DataType(DataType.EmailAddress)]
+        [EmailAddress]
         [Display(Name ="E-post")]
         [Required(ErrorMessage = "Enter a email")]
         public string UserName { get; set; }

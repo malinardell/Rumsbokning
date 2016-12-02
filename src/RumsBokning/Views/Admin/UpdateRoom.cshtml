@@ -1,0 +1,59 @@
+﻿@model UpdateRoomVM
+<script>$(document).ready(function () { hideSettings(); });</script>
+<script>$(document).ready(function () { hideAdmin(); });</script>
+<center>
+    <div id="all">
+        <h1>Redigera rum</h1>
+        <form class="form-inline" asp-controller="admin" asp-action="UpdateRoom">
+            <div class="form-group">
+                <label asp-for="RoomName"></label>
+                <input class="form-control" asp-for="RoomName" />
+                <span asp-validation-for="RoomName"></span>
+                </div>
+                <br />
+                <br />
+            <div class="form-group">
+                <label asp-for="Capacity"></label>
+                <input class="form-control" asp-for="Capacity" />
+                <span asp-validation-for="Capacity"></span>
+                </div>
+                <br />
+                <br />
+            <div class="form-group">
+                <label asp-for="HasWhiteBoard"></label>
+                <select class="form-control" asp-for="HasWhiteBoard">
+                    <option value="true">true</option>
+                    <option value="false">false</option>
+                </select>
+                <span asp-validation-for="HasWhiteBoard"></span>
+                </div>
+                <br />
+                <br />
+            <div class="form-group">
+                <label asp-for="HasProjector"></label>
+                <select class="form-control" asp-for="HasProjector">
+                    <option value="true">true</option>
+                    <option value="false">false</option>
+                </select>
+                <span asp-validation-for="HasProjector"></span>
+                </div>
+                <br />
+                <br />
+            <div class="form-group">
+                <label asp-for="HasTvScreen"></label>
+                <select class="form-control" asp-for="HasTvScreen">
+                    <option value="true">true</option>
+                    <option value="false">false</option>
+                </select>
+                <span asp-validation-for="HasTvScreen"></span>
+                </div>
+                <br />
+                <br />
+                <input id="button" class="btn btn-success" type="submit" value="Uppdatera" />
+            <a href="/admin/editroom"><input id="button" class="btn btn-success" type="submit" value="Avbryt" /></a>
+</form>
+        <br />
+        <br />
+    </div>
+</center>
+

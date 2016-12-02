@@ -1,14 +1,42 @@
 ﻿function logout() {
-    alert("Är du säker på att du vill logga ut?");
-    window.location = "/account/index";
+    var c = confirm("Är du säker på att du vill logga ut?");
+    if (c === true)
+    {
+        window.location = "/account/logout";
+    }
+ 
 }
-
 
 function getCalendar(roomId) {
     var date = new Date();
     var d = date.getDate();
     var m = date.getMonth();
     var y = date.getFullYear();
+
+    $.post('/Home/GetRoomTitle/' + roomId, function (data) {
+        var room = $.parseJSON(data);
+        $("#title").text(room.Name + ' (' + room.Capacity + ' platser)');
+        if (room.HasTvScreen === true) {
+            $('#Tvimage').fadeIn();
+        }
+        else {
+            $('#Tvimage').fadeOut();
+        }
+
+        if (room.HasProjector === true) {
+            $('#Projectorimage').fadeIn();
+        }
+        else {
+            $('#Projectorimage').fadeOut();
+        }
+
+        if (room.HasWhiteBoard === true) {
+            $('#Whiteboardimage').fadeIn();
+        }
+        else {
+            $('#Whiteboardimage').fadeOut();
+        }
+    });
 
     $('#calendar').empty().fullCalendar({
 
@@ -31,12 +59,22 @@ function getCalendar(roomId) {
             week: 'vecka',
             day: 'dag'
         },
+        columnFormat: {
+            week: 'ddd d/M',
+            day: 'dddd d/M'
+        },
         editable: true,
         weekNumbers: true,
         weekNumberTitle: 'V',
+        allDaySlot: false,
         allDayText: 'heldag',
         firstDay: 1,
         defaultView: 'agendaWeek',
+        eventColor: 'green',
+        businessHours: {
+            start: '06:00',
+            end: '21:00'
+        },
         navLinks: false,
         selectable: true,
         selectHelper: true,
@@ -63,10 +101,62 @@ function getCalendar(roomId) {
                 });
             }
             $('#calendar').fullCalendar('unselect');
-        },
-        events: '/Home/GetCalendar/' + roomId
+        },
 
+        events: '/Home/GetCalendar/' + roomId
+    });
+}
+function cancelBooking(RoomTimeId) {
+    var c = confirm("Vill du avboka?");
+    if (c === true) {
+        $.post('/Home/ShowBooking/' + RoomTimeId, function (data) {
+            if (data === '1')
+                $('tr#' + RoomTimeId).fadeOut();
+        });
+    }
+}
+
+function hideAdmin() {
+    $.post('/Home/HideAdmin/', function (data) {
+        if (data === 'Admin') {
+            $('#menuadmin').fadeIn();
+        }
+        else 
+        {      
+            $('#menuadmin').fadeOut();
+        }
+    });
+    
+}
+
+function deleteRoom(RoomId) {
+    var c = confirm("Vill du ta bort rummet?");
+    if (c === true) {
+        $.post('/Admin/DeleteRoom/' + RoomId, function (data) {
+            if (data === '1')
+                $('tr#' + RoomId).fadeOut();
+        });
+    }
+}
+
+
+function hideSettings() {
+    $.post('/Home/HideSettings/', function (data) {
+        if (data === 'Admin') {
+            $('#menusetting').fadeOut();
+        }
+        else {
+            $('#menusetting').fadeIn();
+        }
     });
 
 }
-
+function deleteUser(UserId) {
+    var c = confirm("Vill du ta bort användaren?");
+    if (c === true) {
+        $.post('/Admin/DeleteUser/' + UserId, function (data) {
+            if (data === '1')
+                $('tr#' + UserId).fadeOut();
+        });
+    }
+}

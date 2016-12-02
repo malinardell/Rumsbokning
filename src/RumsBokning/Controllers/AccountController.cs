@@ -8,11 +8,14 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using RumsBokning.Models;
 using Microsoft.AspNetCore.Authorization;
 using RumsBokning.Models.Entities;
+using Microsoft.AspNetCore.Http;
+
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace RumsBokning.Controllers
 {
+    [AllowAnonymous]
     public class AccountController : Controller
     {
         BookingContext context;
@@ -30,14 +33,12 @@ namespace RumsBokning.Controllers
             this.context = context;
         }
 
-        [AllowAnonymous]
         [HttpGet]
         public IActionResult Index()
         {
             return View();
         }
-
-        [AllowAnonymous]
+       
         [HttpGet]
         public IActionResult CreateUser()
         {
@@ -85,12 +86,16 @@ namespace RumsBokning.Controllers
             if (ModelState.IsValid)
             {
                 await context.AddUser(viewModel);
-                return RedirectToAction(nameof(HomeController.Home), "home");
+                return RedirectToAction(nameof(AccountController.Index));
             }
             else
                 return View(viewModel);
-
         }
 
+        public async Task<IActionResult> LogOut()
+        {
+            await signInManager.SignOutAsync();
+            return RedirectToAction(nameof(AccountController.Index));
+        }
     }
 }

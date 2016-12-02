@@ -1,0 +1,36 @@
+﻿@model ShowBookingVM[]
+<script>$(document).ready(function () { hideSettings(); });</script>
+<script>$(document).ready(function () { hideAdmin(); });</script>
+<div id="all">
+    <div class="container">
+        <h2>Mina Bokningar</h2>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Rum</th>
+                    <th>Starttid</th>
+                    <th>Sluttid</th>
+                    <th>Beskrivning</th>
+                    <th>Avboka</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+            {
+                    <tr id="@item.Id">
+                        <td>@item.RoomName</td>
+                        <td>@item.Start</td>
+                        <td>@item.End</td>
+                        <td>@item.Description</td>
+                        <td>
+                            <button type="button" class="btn btn-info" id="btnRemove" onclick="cancelBooking(@item.Id)">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

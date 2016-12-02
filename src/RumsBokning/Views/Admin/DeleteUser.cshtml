@@ -1,0 +1,36 @@
+﻿@model DeleteUserVM[]
+<script>$(document).ready(function () { hideSettings(); });</script>
+<script>$(document).ready(function () { hideAdmin(); });</script>
+<div id="all">
+    <div class="container">
+        <h2>Ta bort användare</h2>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Förnamn</th>
+                    <th>Efternamn</th>
+                    <th>Email</th>
+                    <th>Kontotyp</th>
+                    <th>Ta bort</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr id="@item.Id">
+                        <td>@item.FirstName</td>
+                        <td>@item.LastName</td>
+                        <td>@item.Email</td>
+                        <td>@item.Category</td>
+                        <td>
+                            <button type="button" class="btn btn-info" id="btnRemove" onclick="deleteUser('@item.Id')">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

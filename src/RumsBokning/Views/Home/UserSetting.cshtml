@@ -1,0 +1,43 @@
+﻿@model UserSettingVM
+<script>$(document).ready(function () { hideSettings(); });</script>
+<script>$(document).ready(function () { hideAdmin(); });</script>
+            <center>
+                <div id="all">
+                    <h1>Redigera uppgifter</h1>
+                    <form class="form-inline" asp-controller="home" asp-action="UserSetting">
+                        <div class="form-group">
+                            <label asp-for="UserName"></label>
+                            <input class="form-control" asp-for="UserName" />
+                            <span asp-validation-for="UserName"></span>
+                            </div>
+                        <br />
+                        <br />
+                        <div class="form-group">
+                            <label asp-for="FirstName"></label>
+                            <input class="form-control" asp-for="FirstName" />
+                            <span asp-validation-for="FirstName"></span>
+                            </div>
+                        <br />
+                        <br />
+                        <div class="form-group">
+                            <label asp-for="LastName"></label>
+                            <input class="form-control" asp-for="LastName" />
+                            <span asp-validation-for="LastName"></span>
+                        </div>
+                        <br />
+                        <br />
+                        <div class="form-group">
+                            <label asp-for="Category"></label>
+                            <select class="form-control" asp-for="Category">
+                                <option value="Student">Student</option>
+                                <option value="Lärare">Lärare</option>
+                            </select>
+                            <span asp-validation-for="Category"></span>
+                        </div>
+                        <br />
+                        <br />
+                            <input id="loginbutton" class="btn btn-success" type="submit" value="Spara" />
+</form>
+                </div>
+            </center>
+

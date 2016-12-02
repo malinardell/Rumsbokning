@@ -1,0 +1,45 @@
+﻿@model EditRoomVM[]
+<script>$(document).ready(function () { hideSettings(); });</script>
+<script>$(document).ready(function () { hideAdmin(); });</script>
+<div id="all">
+    <div class="container">
+        <h2>Hantera rum</h2>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Rum</th>
+                    <th>Antal platser</th>
+                    <th>Whiteboard</th>
+                    <th>Tv-skärm</th>
+                    <th>Projektor</th>
+                    <th>Redigera</th>
+                    <th>Ta bort</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+            {
+                    <tr id="@item.Id">
+                        <td>@item.RoomName</td>
+                        <td>@item.Capacity</td>
+                        <td>@item.HasWhiteBoard</td>
+                        <td>@item.HasTvScreen</td>
+                        <td>@item.HasProjector</td>
+                        <td>
+                                <a href="/admin/UpdateRoom/@item.Id" type="button" class="btn btn-info" id="btnUpdate">
+                                    <span class="glyphicon glyphicon-pencil"></span>
+                                </a>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-info" id="btnRemove" onclick="deleteRoom(@item.Id)">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+

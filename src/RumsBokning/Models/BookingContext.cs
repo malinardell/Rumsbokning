@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -13,7 +14,6 @@ namespace RumsBokning.Models.Entities
 {
     public partial class BookingContext
     {
-
         UserManager<IdentityUser> userManager;
         public BookingContext(DbContextOptions<BookingContext> options, UserManager<IdentityUser> userManager) : base(options)
         {
@@ -22,9 +22,8 @@ namespace RumsBokning.Models.Entities
 
         public async Task AddUser(CreateUserVM viewModel)
         {
-            
-                var tempUser = new IdentityUser(viewModel.UserName);
-                var result = await userManager.CreateAsync(tempUser, viewModel.Password);
+            var tempUser = new IdentityUser(viewModel.UserName);
+            var result = await userManager.CreateAsync(tempUser, viewModel.Password);
 
                 if (result.Succeeded)
                 {
@@ -36,13 +35,9 @@ namespace RumsBokning.Models.Entities
                         Email = viewModel.UserName,
                         Category = viewModel.Category
                     };
-
                     this.Users.Add(newUser);
                     await this.SaveChangesAsync();
                 }
-            
-            
-            
         }
         public async Task BookRoom(CreateEventVM viewModel, string userName)
         {
@@ -77,7 +72,7 @@ namespace RumsBokning.Models.Entities
                 newRoomVM.HasProjector = room.HasProjector;
                 newRoomVM.HasTvScreen = room.HasTvScreen;
                 newRoomVM.HasWhiteBoard = room.HasWhiteBoard;
-                
+
 
                 newRoomVM.RoomTimeAndUser = RoomTime
                     .Join(
@@ -117,7 +112,7 @@ namespace RumsBokning.Models.Entities
                 })
               .ToArray()
             };
-            
+
         }
 
         public void AddRoom(CreateRoomVM viewModel)
@@ -135,5 +130,206 @@ namespace RumsBokning.Models.Entities
             this.SaveChangesAsync();
         }
 
+        public Room GetRoomTitleVM(int id)
+        {
+            return Room.SingleOrDefault(r => r.Id == id);
+        }
+
+        public ShowBookingVM[] GetBooking(string id)
+        {
+            var bookings = Room
+                 .Join(RoomTime.Where(c => c.UId == id && c.EndTime > DateTime.Now),
+                 r => r.Id,
+                 rt => rt.RId,
+                 (r, rt) => new ShowBookingVM
+                 {
+                     Id = rt.Id,
+                     RoomName = r.Name,
+                     Start = rt.StartTime,
+                     End = rt.EndTime,
+                     Description = rt.Description
+                 });
+
+            return bookings.ToArray(); ;
+        }
+
+        public int CancelBooking(int id)
+        {
+            var bookingToDelete = RoomTime.SingleOrDefault(b => b.Id == id);
+
+            RoomTime.Remove(bookingToDelete);
+            return SaveChanges();
+        }
+
+        public async Task<string> GetUserCategory(string userName)
+        {
+            var tempUser = await userManager.FindByNameAsync(userName);
+            var tempUser2 = this.Users.SingleOrDefault(x => x.Id == tempUser.Id);
+            var userCategory = tempUser2.Category;
+
+            return userCategory;
+        }
+
+        public async Task<UserSettingVM> GetUserInfo(string userName)
+        {
+            var tempUser = await userManager.FindByNameAsync(userName);
+            var tempUser2 = this.Users.SingleOrDefault(x => x.Id == tempUser.Id);
+
+            var currentUser = new UserSettingVM
+            {
+                UserName = tempUser2.Email,
+                FirstName = tempUser2.FirstName,
+                LastName = tempUser2.LastName,
+                Category = tempUser2.Category
+            };
+
+            return currentUser;
+        }
+
+        public void UpdateUser(UserSettingVM viewModel)
+        {
+            var tempUser = Users.SingleOrDefault(b => b.Email == viewModel.UserName);
+
+            tempUser.Email = viewModel.UserName;
+            tempUser.FirstName = viewModel.FirstName;
+            tempUser.LastName = viewModel.LastName;
+            tempUser.Category = viewModel.Category;
+
+            SaveChanges();
+        }
+
+        public async Task<AdminSettingVM> GetAdminInfo(string userName)
+        {
+            var tempUser = await userManager.FindByNameAsync(userName);
+            var tempUser2 = this.Users.SingleOrDefault(x => x.Id == tempUser.Id);
+
+            var currentUser = new AdminSettingVM
+            {
+                UserName = tempUser2.Email,
+                FirstName = tempUser2.FirstName,
+                LastName = tempUser2.LastName,
+                Category = tempUser2.Category
+            };
+
+            return currentUser;
+        }
+
+        public void UpdateAdmin(AdminSettingVM viewModel)
+        {
+            var tempUser = Users.SingleOrDefault(b => b.Email == viewModel.UserName);
+
+            tempUser.Email = viewModel.UserName;
+            tempUser.FirstName = viewModel.FirstName;
+            tempUser.LastName = viewModel.LastName;
+            tempUser.Category = viewModel.Category;
+
+            SaveChanges();
+        }
+        public int DeleteRoom(int id)
+        {
+            var roomToDelete = Room.SingleOrDefault(b => b.Id == id);
+
+            foreach (var booking in RoomTime.Where(rt => rt.RId == id))
+            {
+                RoomTime.Remove(booking);
+            }
+
+            Room.Remove(roomToDelete);
+            return SaveChanges();
+        }
+
+        public UpdateRoomVM GetRoomToUpdate(int id)
+        {
+            var roomToUpdate = Room.SingleOrDefault(b => b.Id == id);
+
+            var tempRoom = new UpdateRoomVM
+            {
+               RoomName = roomToUpdate.Name,
+               Capacity = roomToUpdate.Capacity,
+               HasProjector = roomToUpdate.HasProjector,
+               HasTvScreen = roomToUpdate.HasTvScreen,
+               HasWhiteBoard = roomToUpdate.HasWhiteBoard
+            };
+            return tempRoom;
+        }
+
+        public void UpdateRoom(UpdateRoomVM viewModel)
+        {
+            var tempRoom = Room.SingleOrDefault(b => b.Id == viewModel.Id);
+
+            tempRoom.Name = viewModel.RoomName;
+            tempRoom.Capacity = viewModel.Capacity;
+            tempRoom.HasWhiteBoard = viewModel.HasWhiteBoard;
+            tempRoom.HasTvScreen = viewModel.HasTvScreen;
+            tempRoom.HasProjector = viewModel.HasProjector;
+
+            SaveChanges();
+        }
+
+        public EditRoomVM[] ShowRooms()
+        {
+            return Room
+                .Select(c => new EditRoomVM
+                {
+                    Id = c.Id,
+                    RoomName = c.Name,
+                    Capacity = c.Capacity,
+                    HasProjector = c.HasProjector,
+                    HasTvScreen = c.HasTvScreen,
+                    HasWhiteBoard = c.HasWhiteBoard
+                }).ToArray();
+        }
+
+        public async Task CreateAdmin(CreateAdminVM viewModel)
+        {
+            var tempUser = new IdentityUser(viewModel.UserName);
+            var result = await userManager.CreateAsync(tempUser, viewModel.Password);
+
+            if (result.Succeeded)
+            {
+                var newUser = new Users
+                {
+                    Id = tempUser.Id,
+                    FirstName = viewModel.FirstName,
+                    LastName = viewModel.LastName,
+                    Email = viewModel.UserName,
+                    Category = viewModel.Category
+                };
+
+                this.Users.Add(newUser);
+                await this.SaveChangesAsync();
+            }
+        }
+
+        public DeleteUserVM[] GetUsers()
+        {
+            return Users
+                .Select(c => new DeleteUserVM
+                {
+                    Id = c.Id,
+                    FirstName = c.FirstName,
+                    LastName = c.LastName,
+                    Category = c.Category,
+                    Email = c.Email
+                }).ToArray();
+        }
+
+        public int DeleteUser(string id)
+        {
+            var userToDelete = Users.Include(p => p.RoomTime).SingleOrDefault(b => b.Id == id);
+
+            if (userToDelete != null)
+            {
+                foreach (var booking in userToDelete.RoomTime)
+                {
+                    RoomTime.Remove(booking);
+                }
+
+                Users.Remove(userToDelete);
+                return SaveChanges();
+            }
+            else
+                return 0;
+        }
     }
 }

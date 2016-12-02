@@ -1,8 +1,10 @@
 ﻿@model HomeVM
+<script>$(document).ready(function () { hideSettings(); });</script>
+<script>$(document).ready(function () { hideAdmin(); });</script>
     <div id="all">
             <div class="dropdown">
-                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-                    Grupprum
+                <button class="btn btn-primary dropdown-toggle" type="button" id="chooseroom" data-toggle="dropdown">
+                    Välj rum
                     <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu">
@@ -12,37 +14,44 @@
                     }
                 </ul>
             </div>
-            <center><div id="title">Lovelace</div></center>
+        
+            <center><div id="title"></div></center>  
+        
             <!--Rum ikoner-->
             <div id="roomcontent">
-                <a href="#" target="blank">
-                    <div class="hvrbox">
-                        <img src="tv-icon.png" alt="Mountains" class="hvrbox-layer_bottom">
-                        <div class="hvrbox-layer_top">
-                            <div class="hvrbox-text">TV</div>
+                <div id="Tvimage">
+                    <a href="#" target="blank">
+                        <div class="hvrbox">
+                            <img src="~/bilder/tv-icon.png" alt="Mountains" class="hvrbox-layer_bottom" />
+                            <div class="hvrbox-layer_top">
+                                <div class="hvrbox-text">TV</div>
+                            </div>
                         </div>
-                    </div>
-                </a>
-                <a href="#" target="blank">
-                    <div class="hvrbox">
-                        <img src="projector-icon.png" alt="Mountains" class="hvrbox-layer_bottom">
-                        <div class="hvrbox-layer_top">
-                            <div class="hvrbox-text">Projektor</div>
+                    </a>
+                </div>
+                <div id="Projectorimage">
+                    <a href="#" target="blank">
+                        <div class="hvrbox">
+                            <img src="~/bilder/projector-icon.png" alt="Mountains" class="hvrbox-layer_bottom" />
+                            <div class="hvrbox-layer_top">
+                                <div class="hvrbox-text">Projektor</div>
+                            </div>
                         </div>
-                    </div>
-                </a>
-                <a href="#" target="blank">
-                    <div class="hvrbox">
-                        <img src="whiteboard-icon.png" alt="Mountains" class="hvrbox-layer_bottom">
-                        <div class="hvrbox-layer_top">
-                            <div class="hvrbox-text">Whiteboard</div>
+                    </a>
+                </div>
+                <div id="Whiteboardimage">
+                    <a href="#" target="blank">
+                        <div class="hvrbox">
+                            <img src="~/bilder/whiteboard-icon.png" alt="Mountains" class="hvrbox-layer_bottom" />
+                            <div class="hvrbox-layer_top">
+                                <div class="hvrbox-text">Whiteboard</div>
+                            </div>
                         </div>
-                    </div>
-                </a>
+                    </a>
+                </div>
                 </div>
 
                 <div class="container">
-                    <hr>
                     <div id="calendar">
                     </div>
                 </div>

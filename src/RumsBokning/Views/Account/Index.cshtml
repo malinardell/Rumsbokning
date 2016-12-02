@@ -1,19 +1,27 @@
 ﻿@model IndexVM
-
-<div id="login">
-    <h1>Logga in</h1>
-    <form asp-controller="account" asp-action="index">
-        <label asp-for="UserName"></label>
-        <input asp-for="UserName" />
-        <span asp-validation-for="UserName"></span>
+<script>$(document).ready(function () { hideAdmin(); });</script>
+<script>$(document).ready(function () { hideSettings(); });</script>
+<div id="all">
+    <div id="login">
+        <h1>Logga in</h1>
+        <form class="form-inline" asp-controller="account" asp-action="index">
+            <div class="form-group">
+                    <label id="labelLogin" asp-for="UserName"></label>
+                    <input class="form-control" asp-for="UserName" />
+                <span asp-validation-for="UserName"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <label id="labelLogin" asp-for="Password"></label>
+                <input class="form-control" asp-for="Password" />
+                <span asp-validation-for="Password"></span>
+                </div>
+            <br />
+            <br />
+                <input id="button" class="btn btn-success" type="submit" value="Logga in" />
+</form>
         <br />
-        <label asp-for="Password"></label>
-        <input asp-for="Password" />
-        <span asp-validation-for="Password"></span>
-        <br />
-        <br />
-        <input type="submit" value="Logga in" />
-    </form>
-    <br />
-    <a href="/account/CreateUser">Skapa användare</a>
+        <a id="createuserlink" class="btn btn-link" href="/account/CreateUser"><b>Skapa användare</b></a>
+    </div>
 </div>
+
