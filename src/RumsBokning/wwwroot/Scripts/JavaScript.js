@@ -7,6 +7,7 @@
  
 }
 
+
 function getCalendar(roomId) {
     var date = new Date();
     var d = date.getDate();
@@ -62,8 +63,7 @@ function getCalendar(roomId) {
         columnFormat: {
             week: 'ddd d/M',
             day: 'dddd d/M'
-        },
-        editable: true,
+        },       
         weekNumbers: true,
         weekNumberTitle: 'V',
         allDaySlot: false,
@@ -74,8 +74,23 @@ function getCalendar(roomId) {
         businessHours: {
             start: '06:00',
             end: '21:00'
+        },        
+        editable: true,
+        eventDrop: function(event, revertFunc) {
+
+            alert(event.description + " flyttades till " + event.start.toLocaleString());
+
+            if (!confirm("Vill du spara ändringarna?")) {
+                revertFunc();
+            }
+            else {
+                $.post('/home/ChangeBooking', event, function () {
+                    getCalendar(roomId);
+                });
+            }
         },
         navLinks: false,
+        eventOverlap: false,
         selectable: true,
         selectHelper: true,
         select: function (start, end) {
@@ -87,15 +102,13 @@ function getCalendar(roomId) {
                     description: title,
                     start: start.toLocaleString(),
                     end: end.toLocaleString(),
-                    roomId: roomId
+                    roomId: roomId,
                 };
                 eventRender = function (event, element) {
                     element.qtip({
                         content: event.description
                     });
                 };
-                //$('#calendar').fullCalendar('renderEvent', eventData, false); // stick? = true
-                //console.log(title + " " + start + " " + end);
                 $.post('/home/CreateEvent', eventData, function () {
                     getCalendar(roomId);
                 });

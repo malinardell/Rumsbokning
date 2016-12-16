@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DataComparison>
+  <Version>10</Version>
+  <ConnectionProperties1>
+    <ConnectionString>Data Source=(localdb)\mssqllocaldb;Initial Catalog=Identitybooking;Integrated Security=True;Pooling=False</ConnectionString>
+    <FullDisplayName>(localdb)\mssqllocaldb.Identitybooking (ACADEMY-6211VMQ\Administrator)</FullDisplayName>
+  </ConnectionProperties1>
+  <ConnectionProperties2>
+    <ConnectionString>Data Source=identitybooking.database.windows.net;Initial Catalog=IdentityBookingDB;Persist Security Info=True;User ID=bookingadmin;Pooling=False;MultipleActiveResultSets=False;Connect Timeout=60;Encrypt=False;TrustServerCertificate=True</ConnectionString>
+    <FullDisplayName>identitybooking.database.windows.net.IdentityBookingDB (bookingadmin)</FullDisplayName>
+  </ConnectionProperties2>
+  <SessionSettings>Default</SessionSettings>
+</DataComparison>

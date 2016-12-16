@@ -102,6 +102,13 @@ namespace RumsBokning.Controllers
             return await context.GetUserCategory(User.Identity.Name);
         }
 
+        [HttpPost]
+        public int ChangeBooking(UpdateEventVM viewModel)
+        {
+         return context.UpdateBooking(viewModel);
+
+        }
+
     }
 }
 

@@ -47,8 +47,6 @@ namespace RumsBokning.Models.Entities
             {
                 RId = viewModel.RoomId,
                 UId = userId,
-                //LastName = viewModel.LastName,
-                //FirstName = viewModel.FirstName,
                 StartTime = viewModel.Start,
                 EndTime = viewModel.End,
                 Description = viewModel.Description
@@ -196,6 +194,18 @@ namespace RumsBokning.Models.Entities
             tempUser.Category = viewModel.Category;
 
             SaveChanges();
+        }
+
+        public int UpdateBooking(UpdateEventVM viewModel)
+        {
+            var bookingToUpdate = RoomTime.SingleOrDefault(b => b.Id == viewModel.BId);
+
+            bookingToUpdate.RId = viewModel.RoomId;
+            bookingToUpdate.StartTime = viewModel.Start;
+            bookingToUpdate.EndTime = viewModel.End;
+            bookingToUpdate.Description = viewModel.Description;
+
+            return SaveChanges();
         }
 
         public async Task<AdminSettingVM> GetAdminInfo(string userName)

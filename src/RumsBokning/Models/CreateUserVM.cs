@@ -19,11 +19,6 @@ namespace RumsBokning.Models
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
-        [Display(Name = "Fyll lösenordet igen")]
-        [Required(ErrorMessage = "Fyll i lösenord")]
-        [DataType(DataType.Password)]
-        public string PasswordCheck { get; set; }
-
         [Display(Name = "Förnamn")]
         [Required(ErrorMessage = "Lägg till förnamn")]
         public string FirstName { get; set; }
